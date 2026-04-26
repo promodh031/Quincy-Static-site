@@ -40,6 +40,7 @@ export function usePublicContent() {
 
   useEffect(() => {
     const unsubs: Unsubscribe[] = [];
+    let didResolveInitialSettings = false;
 
     unsubs.push(
       onSnapshot(
@@ -47,8 +48,18 @@ export function usePublicContent() {
         (snap) => {
           if (snap.exists()) setSettings(mergeSiteSettings(snap.data() as Partial<SiteSettings>));
           else setSettings(DEFAULT_SETTINGS);
+          if (!didResolveInitialSettings) {
+            didResolveInitialSettings = true;
+            setLoading(false);
+          }
         },
-        (e) => setError(e.message)
+        (e) => {
+          setError(e.message);
+          if (!didResolveInitialSettings) {
+            didResolveInitialSettings = true;
+            setLoading(false);
+          }
+        }
       )
     );
 
@@ -195,7 +206,6 @@ export function usePublicContent() {
       )
     );
 
-    setLoading(false);
     return () => unsubs.forEach((u) => u());
   }, []);
 

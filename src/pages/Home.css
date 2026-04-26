@@ -435,6 +435,9 @@
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
   gap: 1rem;
 }
+.mm-program-grid {
+  overflow-x: clip;
+}
 .mm-pillar,
 .mm-spot {
   padding: 1.15rem 1.25rem;
@@ -444,6 +447,9 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  min-width: 0;
+  width: 100%;
+  overflow: hidden;
 }
 .mm-pillar-title,
 .mm-spot-title {
@@ -460,6 +466,7 @@
 .mm-program-title {
   margin: 0 0 0.25rem;
   font-size: 1.1rem;
+  overflow-wrap: anywhere;
 }
 .mm-program-meta {
   margin: 0 0 0.5rem;
@@ -468,16 +475,20 @@
   color: var(--md-sys-color-primary);
   text-transform: uppercase;
   letter-spacing: 0.04em;
+  overflow-wrap: anywhere;
 }
 .mm-program-desc {
   margin: 0 0 1rem;
   font-size: 0.9rem;
   color: var(--md-sys-color-on-surface-variant);
   line-height: 1.55;
+  overflow-wrap: anywhere;
 }
 .mm-program-link {
   align-self: flex-start;
   text-decoration: none;
+  max-width: 100%;
+  white-space: normal;
 }
 .mm-gallery-intro {
   padding-top: 2rem;

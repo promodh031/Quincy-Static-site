@@ -12,7 +12,14 @@ import ScrollToTop from "../components/ScrollToTop";
 import "./Home.css";
 
 export default function Home() {
-  const { settings, homeSections, campusSpots, categories, videos, management, faqItems, whyPillars, programCards } = usePublicContent();
+  const { settings, homeSections, campusSpots, categories, videos, management, faqItems, whyPillars, programCards, loading } = usePublicContent();
+  if (loading) {
+    return (
+      <div className="page-loading">
+        <span className="material-symbols-outlined spin">progress_activity</span>
+      </div>
+    );
+  }
   const hasAnyVideos = categories.some((c) => videos.some((v) => v.categoryId === c.id));
   const hasWhy = whyPillars.length > 0 || Boolean(settings.whyTitle?.trim());
   const hasPrograms = programCards.length > 0 || Boolean(settings.programsTitle?.trim());
